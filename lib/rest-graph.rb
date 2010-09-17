@@ -379,7 +379,7 @@ class RestGraph < RestGraphStruct
     qq = access_token ? {:access_token => access_token}.merge(query) : query
     q  = qq.select{ |k, v| v }
     return '' if q.empty?
-    return '?' + q.map{ |(k, v)| "#{k}=#{CGI.escape(v.to_s)}" }.join('&')
+    return '?' + q.map{ |(k, v)| "#{k}=#{k == :access_token ? v.to_s : CGI.escape(v.to_s)}" }.join('&')
   end
 
   def build_headers
