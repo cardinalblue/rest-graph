@@ -144,7 +144,7 @@ Here are ALL the available options for new instance of RestGraph.
            # should work, and Rails.cache works, too. (because of a patch in
            # RailsUtil)
 
-           :error_handler => lambda{|hash| raise RestGraph::Error.new(hash)},
+           :error_handler => lambda{ |error, url| raise ::RestGraph::Error.parse(error, url) }
            # This handler callback is only called if auto_decode is
            # set to true, otherwise, it's ignored. And raising exception
            # is the default unless you're using RailsUtil and enabled
