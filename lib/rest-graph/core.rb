@@ -503,14 +503,14 @@ class RestGraph < RestGraphStruct
       # TODO: how to deal with the failed?
       clients = m.responses[:callback].sort.map(&:last)
       results = clients.map{ |client|
-        post_request(opts, client.uri, client.response)
+        post_request(opts, client.last_effective_url, client.response)
       }
 
       if reqs.size == 1
         yield(results.first)
       else
         log(Event::MultiDone.new(Time.now - start_time,
-          clients.map(&:uri).join(', ')))
+          clients.map(&:last_effective_url).join(', ')))
         yield(results)
       end
     }
