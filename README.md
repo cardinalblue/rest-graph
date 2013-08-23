@@ -256,6 +256,11 @@ options for RestGraph instance are also valid options for rest_graph_setup.
     #                     # default: {}
     rg.get('me', {:metadata => '1'}, :secret => true, expires_in => 600)
 
+    # When using eventmachine
+    rg.get('me', {:metadata => '1'}, :async => true) do |result|
+      # This block is called even on failure
+    end
+
 #### post
 
     rg.post('me/feed', :message => 'bread!')
