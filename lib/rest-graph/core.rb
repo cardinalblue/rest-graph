@@ -1,4 +1,3 @@
-
 # optional http client
 begin; require 'restclient'     ; rescue LoadError; end
 begin; gem 'em-http-request'
@@ -85,8 +84,7 @@ class RestGraph < RestGraphStruct
   Attributes.each{ |name|
     module_eval <<-RUBY
       def #{name}
-        if (r = super).nil? then self.#{name} = self.class.default_#{name}
-                            else r end
+        (r = super).nil? ? self.#{name} = self.class.default_#{name} : r
       end
     RUBY
   }
